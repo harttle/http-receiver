@@ -38,7 +38,7 @@ h3 small {
       section.innerHTML = html;
 
       var root = document.scrollingElement;
-      var scrollNeeded = root.scrollHeight - (pageYOffset + root.clientHeight) < 200;
+      var scrollNeeded = root.scrollHeight - (pageYOffset + root.clientHeight) < 300;
       messages.appendChild(section);
       if (scrollNeeded) {
         setTimeout(function () {
