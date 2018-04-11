@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTTP Receiver</title>
+  <style>
+html {
+  scroll-behavior: smooth;
+}
+h3 small {
+  margin-left: 15px;
+}
+  </style>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <section id="messages"></section>
+  <script>
+    var socket = io();
+
+    socket.on('history', function (requests) {
+      requests.forEach(insert);
+    });
+    socket.on('request', function (request) {
+      insert(request)
+    });
+
+    function insert(request) {
+      var section = document.createElement('section');
+      var desc = 'IP: ' + request.ip + ' Date: ' + request.datetime;
+      var html = '<h3>' + request.url + '<small>' + desc + '</small>' + '</h3>';
+      html += '<dl>';
+      html += '<dt>Headers:</dt>';
+      html += '<dd>' + renderHeaders(request.headers) + '</dd>';
+      html += '<dt>Body:</dt>';
+      html += '<dd>' + request.body + '</dd>';
+      html += '</dl>';
+      section.innerHTML = html;
+
+      var root = document.scrollingElement;
+      var scrollNeeded = root.scrollHeight - (pageYOffset + root.clientHeight) < 200;
+      messages.appendChild(section);
+      if (scrollNeeded) {
+        setTimeout(function () {
+          scrollTo(0, root.scrollHeight);
+        });
+      }
+    }
+
+    function renderHeaders(headers) {
+      return Object.keys(headers)
+      .map(function (key) {
+        return key + ':' + headers[key]
+      })
+      .join(', ');
+    }
+  </script>
+</body>
+</html>
