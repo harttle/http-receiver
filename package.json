@@ -1,6 +1,6 @@
 {
   "name": "http-receiver",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "An http endpoint that provides realtime views",
   "main": "index.js",
   "bin": {
