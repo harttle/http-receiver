@@ -2,6 +2,8 @@
 
 An http endpoint that provides realtime views.
 
+![record](https://user-images.githubusercontent.com/4427974/38619045-dd4027de-3dcd-11e8-99d7-8ae740be0fec.gif)
+
 ## Usage
 
 ```bash
