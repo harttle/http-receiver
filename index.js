@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const request = require('./request');
 const Queue = require('./queue');
 const concat = require('concat-stream');

@@ -4,7 +4,7 @@
   "description": "An http endpoint that provides realtime views",
   "main": "index.js",
   "bin": {
-    "http-receiver": "node index.js"
+    "http-receiver": "./index.js"
   },
   "scripts": {
     "start": "node index.js",
