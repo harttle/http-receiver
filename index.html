@@ -4,12 +4,19 @@
   <meta charset="UTF-8">
   <title>HTTP Receiver</title>
   <style>
-html {
-  scroll-behavior: smooth;
-}
-h3 small {
-  margin-left: 15px;
-}
+      html {
+        scroll-behavior: smooth;
+      }
+      details {
+        margin: 10px 0;
+      }
+      strong {
+        min-width: 100px;
+        display: inline-block;
+      }
+      detail:focus, summary:focus {
+        outline: none;
+      }
   </style>
   <script src="/socket.io/socket.io.js"></script>
 </head>
@@ -17,29 +24,26 @@ h3 small {
   <section id="messages"></section>
   <script>
     var socket = io();
+    socket.on('history', requests => requests.forEach(insert));
+    socket.on('request', insert);
 
-    socket.on('history', function (requests) {
-      requests.forEach(insert);
-    });
-    socket.on('request', function (request) {
-      insert(request)
-    });
+    function insert(req) {
+      console.log('request received:', req);
 
-    function insert(request) {
-      var section = document.createElement('section');
-      var desc = 'IP: ' + request.ip + ' Date: ' + request.datetime;
-      var html = '<h3>' + request.url + '<small>' + desc + '</small>' + '</h3>';
-      html += '<dl>';
-      html += '<dt>Headers:</dt>';
-      html += '<dd>' + renderHeaders(request.headers) + '</dd>';
-      html += '<dt>Body:</dt>';
-      html += '<dd>' + request.body + '</dd>';
-      html += '</dl>';
-      section.innerHTML = html;
+      var details = document.createElement('details');
+      details.innerHTML = `<summary><strong>${req.pathname}</strong> ${renderQuery(req.query)}</summary>
+<dl>
+  <dt>URL (IP, Date)</dt>
+  <dd>${req.url} (IP: ${req.ip}, Date: ${req.datetime})</dd>
+  <dt>Headers:</dt>
+  <dd>${renderHeaders(req.headers)}</dd>
+  <dt>Body:</dt>
+  <dd>${req.body}</dd>
+</dl>`
 
       var root = document.scrollingElement;
       var scrollNeeded = root.scrollHeight - (pageYOffset + root.clientHeight) < 300;
-      messages.appendChild(section);
+      messages.appendChild(details);
       if (scrollNeeded) {
         setTimeout(function () {
           scrollTo(0, root.scrollHeight);
@@ -47,6 +51,9 @@ h3 small {
       }
     }
 
+    function renderQuery(query) {
+      return Object.entries(query).map(([key, val]) => key + ':' + decodeURIComponent(val)).join(', ');
+    }
     function renderHeaders(headers) {
       return Object.keys(headers)
       .map(function (key) {

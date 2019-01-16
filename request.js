@@ -1,11 +1,15 @@
-function factory (req, body) {
-    return {
-        ip: req.ip,
-        url: req.url,
-        datetime: new Date(),
-        headers: req.headers,
-        body: req.body
-    };
+const url = require('url');
+
+class Request {
+    constructor (req) {
+        this.ip = req.ip;
+        this.pathname = url.parse(req.url).pathname;
+        this.url = req.url;
+        this.query = req.query;
+        this.datetime = new Date();
+        this.headers = req.headers;
+        this.body = req.body;
+    }
 }
 
-module.exports = factory;
+module.exports = Request;
