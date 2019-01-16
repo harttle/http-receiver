@@ -1,6 +1,4 @@
-#!/usr/bin/env node
-
-const request = require('./request');
+const Request = require('./request');
 const Queue = require('./queue');
 const concat = require('concat-stream');
 const app = require('express')();
@@ -9,7 +7,6 @@ const io = require('socket.io')(http);
 const path = require('path');
 
 var logs = new Queue(process.env.SIZE || 10);
-var port = process.env.PORT || 3000;
 
 app.use(function (req, res, next) {
     req.pipe(concat(function (data) {
@@ -23,7 +20,8 @@ app.get('/monitor', function (req, res) {
 });
 
 app.use(function (req, res) {
-    var item = request(req);
+    var item = new Request(req);
+    console.log('request received:', item);
     logs.push(item);
     io.emit('request', item);
     res.end();
@@ -35,7 +33,4 @@ io.on('connection', function (socket) {
     io.emit('history', logs.all());
 });
 
-http.listen(port, () => {
-    console.log('http receiver listening to', port);
-    console.log(`monitor: http://localhost:${port}/monitor`);
-});
+module.exports = http;

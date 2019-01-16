@@ -4,10 +4,10 @@
   "description": "An http endpoint that provides realtime views",
   "main": "index.js",
   "bin": {
-    "http-receiver": "./index.js"
+    "http-receiver": "./bin/http-receiver"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon ./bin/http-receiver",
     "lint": "eslint *.js",
     "preversion": "npm run lint",
     "postversion": "git push && git push --tags"
@@ -28,7 +28,8 @@
     "eslint-plugin-mocha": "^4.9.0",
     "eslint-plugin-node": "^5.2.0",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "nodemon": "^1.18.9"
   },
   "homepage": "https://github.com/harttle/http-receiver#readme",
   "dependencies": {
