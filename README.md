@@ -21,7 +21,7 @@ rlog('foo', '我爱你中国', {foo: 'bar'});    // send anything using rlog
 </script>
 ```
 
-Checkout  <http://monitor.harttle.com> for your log.
+Checkout  <http://log.harttle.com> for your log.
 
 ## Host Yourself
 
@@ -32,7 +32,7 @@ npm i -g http-receiver
 PORT=8080 http-receiver
 ```
 
-Send log to <http://localhost:3000> and checkout <http://localhost:8080/monitor> for your log.
+Send log to <http://localhost:3000> and checkout <http://localhost:8080> for your log.
 
 ## Environments
 
