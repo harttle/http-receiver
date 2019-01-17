@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
-var http = require('../index.js');
-var port = process.env.PORT || 3000;
+var {web, receiver} = require('../index.js');
+var webPort = process.env.WEB_PORT || 8080;
+var receiverPort = process.env.REC_PORT || 3000;
 
-http.listen(port, () => {
-    console.log('http receiver listening to', port);
-    console.log(`monitor: http://localhost:${port}/monitor`);
+web.listen(webPort, () => {
+    console.log('monitor listening to', webPort);
+});
+receiver.listen(receiverPort, () => {
+    console.log('receiver listening to', receiverPort);
 });

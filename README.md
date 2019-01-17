@@ -32,9 +32,10 @@ npm i -g http-receiver
 PORT=8080 http-receiver
 ```
 
-Send log to <http://localhost:3000> and checkout <http://localhost:3000/monitor> for your log.
+Send log to <http://localhost:3000> and checkout <http://localhost:8080> for your log.
 
 ## Environments
 
-* `PORT`: the port to receive data, default 3000
+* `REC_PORT`: the port to receive data, default 3000
+* `WEB_PORT`: the port showing realtime logs, default 8080
 * `SIZE`: queue size for the cached requests, default 10
