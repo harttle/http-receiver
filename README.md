@@ -32,7 +32,7 @@ npm i -g http-receiver
 PORT=8080 http-receiver
 ```
 
-Send log to <http://localhost:3000> and checkout <http://localhost:8080> for your log.
+Send log to <http://localhost:3000> and checkout <http://localhost:3000/monitor> for your log.
 
 ## Environments
 
